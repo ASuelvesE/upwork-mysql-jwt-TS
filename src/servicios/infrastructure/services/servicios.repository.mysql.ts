@@ -13,7 +13,6 @@ import Servicio from "../../domain/Servicio";
 
 export default class ServiciosRepositoryMysql implements IServiciosRepository {
 
-
   async create(servicio: Servicio, usuario: Usuario): Promise<Servicio> {
 
     const sql: string = `insert into servicios (email_usuario,id_categoria,provincia,fechaFinalizacion,descripcion,titulo) 
@@ -23,7 +22,7 @@ export default class ServiciosRepositoryMysql implements IServiciosRepository {
       const newService: any = await executeQuery<Servicio>(sql);
       if (newService.insertId)
         servicio.id = newService.insertId;
-        servicio.email_usuario = usuario.email;
+      servicio.email_usuario = usuario.email;
       return servicio;
     } catch (error) {
       console.error(error);
@@ -41,12 +40,8 @@ export default class ServiciosRepositoryMysql implements IServiciosRepository {
     };
   }
   async getByFilter(servicio: Servicio): Promise<Servicio[]> {
-    const sql: string = `select * from servicios where 
-     fechaFinalizacion < '${servicio.fechaFinalizacion}'
-     AND titulo LIKE '%${servicio.titulo}%'
-     OR id_categoria = ${servicio.id_categoria} 
-     OR provincia = '${servicio.provincia}'`
-     
+
+    const sql: string = this.generateFilterSqlQuery(servicio);
     try {
       const servicios: any = await executeQuery<Servicio>(sql);
       return servicios;
@@ -55,7 +50,18 @@ export default class ServiciosRepositoryMysql implements IServiciosRepository {
       return [];
     };;
   }
+  generateFilterSqlQuery(servicio: Servicio): string {
+    let sql = `SELECT * FROM servicios 
+    WHERE fechaFinalizacion < '${servicio.fechaFinalizacion}'`;
 
+    if (servicio.titulo)
+      sql += ` AND titulo LIKE '%${servicio.titulo}%'`;
+    if (servicio.id_categoria)
+      sql += ` AND id_categoria = ${servicio.id_categoria}`;
+    if (servicio.provincia)
+      sql += ` AND provincia = '${servicio.provincia}'`;
+    return sql;
+  }
   async getByCategoria(idCategoria: Number): Promise<Servicio[]> {
     const sql: string = `select * from servicios where id_categoria = ${idCategoria}`
     try {

@@ -9,4 +9,5 @@ export default interface IServiciosRepository {
   getAll(): Promise<Servicio[]>;
   getByFilter(servicio: Servicio): Promise<Servicio[]>;
   getByCategoria(idCategoria: Number): Promise<Servicio[]>
+  generateFilterSqlQuery(servicio: Servicio): string;
 }
