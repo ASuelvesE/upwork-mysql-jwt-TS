@@ -1,1 +1,1 @@
-# GameStore-JWT-PosgreSQL
+# upwork-mysql-jwt-TS
