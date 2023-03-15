@@ -1,0 +1,38 @@
+{
+  "name": "mysql-jwt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "start-js": "node src/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc --build",
+    "build-out": "tsc -w --outDir build/",
+    "clean": "tsc --build --clean",
+    "swagger-autogen": "node swagger/swagger.js"
+  },
+  "author": "Angel",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20",
+    "swagger-ui-express": "^4.6.0",
+    "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/mysql": "^2.15.21",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "swagger-autogen": "^2.22.0",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1"
+  }
+}
