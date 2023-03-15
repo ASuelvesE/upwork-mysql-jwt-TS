@@ -42,9 +42,9 @@ export default class ServiciosRepositoryMysql implements IServiciosRepository {
   }
   async getByFilter(servicio: Servicio): Promise<Servicio[]> {
     const sql: string = `select * from servicios where 
-     titulo LIKE '%${servicio.titulo}%'
+     fechaFinalizacion < '${servicio.fechaFinalizacion}'
+     AND titulo LIKE '%${servicio.titulo}%'
      OR id_categoria = ${servicio.id_categoria} 
-     OR fechaFinalizacion < '${servicio.fechaFinalizacion}' 
      OR provincia = '${servicio.provincia}'`
      
     try {
